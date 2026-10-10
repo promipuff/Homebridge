@@ -1,0 +1,76 @@
+/* Layout: sidebar app shell on desktop, bottom tab bar on phones. Content max 72rem. */
+:root {
+  --bg: #f5f1e6;          /* warm cream */
+  --surface: #fffdf7;
+  --surface-2: #ede7d6;
+  --ink: #262a27;         /* charcoal */
+  --muted: #5a6159;
+  --line: #d8d0bb;
+  --forest: #1f4d3a;      /* deep forest green */
+  --forest-ink: #fdfbf3;
+  --forest-soft: #dfe9dd;
+  --sage: #7f9d82;        /* muted sage */
+  --sage-soft: #e3eadc;
+  --amber: #9a5b00;       /* soft amber, darkened for text contrast */
+  --amber-soft: #fbecc8;
+  --danger: #b3261e;      /* urgent red */
+  --danger-soft: #fbe3df;
+  --ok: #2b6a3c;
+  --ok-soft: #dcefdc;
+  --info: #2e5c7a;
+  --info-soft: #dfeaf1;
+  --focus: #c77d00;
+  color-scheme: light;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #121915; --surface: #1a231e; --surface-2: #233029; --ink: #ebe7da; --muted: #a7b0a5; --line: #34433a;
+    --forest: #86c29c; --forest-ink: #0f1f17; --forest-soft: #213a2c; --sage: #6d8f73; --sage-soft: #24352a;
+    --amber: #f0b354; --amber-soft: #3a2e14; --danger: #ff8b7d; --danger-soft: #3f1d19; --ok: #8fd3a1; --ok-soft: #1c3424;
+    --info: #9cc6e2; --info-soft: #1c2e3a; --focus: #f0b354; color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #121915; --surface: #1a231e; --surface-2: #233029; --ink: #ebe7da; --muted: #a7b0a5; --line: #34433a;
+  --forest: #86c29c; --forest-ink: #0f1f17; --forest-soft: #213a2c; --sage: #6d8f73; --sage-soft: #24352a;
+  --amber: #f0b354; --amber-soft: #3a2e14; --danger: #ff8b7d; --danger-soft: #3f1d19; --ok: #8fd3a1; --ok-soft: #1c3424;
+  --info: #9cc6e2; --info-soft: #1c2e3a; --focus: #f0b354; color-scheme: dark;
+}
+/* High contrast: pure ground, black ink, heavier lines. */
+:root.hc { --bg: #ffffff; --surface: #ffffff; --surface-2: #f0f0ec; --ink: #000000; --muted: #222222; --line: #1a1a1a; --forest: #0a3a25; --forest-soft: #d6ecdc; --amber: #6b3d00; --danger: #8a0c05; --ok: #0d4a1f; --info: #0b3a5c; --focus: #0047ff; }
+@media (prefers-color-scheme: dark) {
+  :root.hc:not([data-theme="light"]) { --bg: #000000; --surface: #000000; --surface-2: #161616; --ink: #ffffff; --muted: #e5e5e5; --line: #f0f0f0; --forest: #a6f0c0; --forest-ink: #000000; --forest-soft: #12301f; --amber: #ffd27a; --danger: #ffb0a6; --ok: #b0f5c2; --info: #bfe2ff; --focus: #ffe14d; }
+}
+:root.hc[data-theme="dark"] { --bg: #000000; --surface: #000000; --surface-2: #161616; --ink: #ffffff; --muted: #e5e5e5; --line: #f0f0f0; --forest: #a6f0c0; --forest-ink: #000000; --forest-soft: #12301f; --amber: #ffd27a; --danger: #ffb0a6; --ok: #b0f5c2; --info: #bfe2ff; --focus: #ffe14d; }
+:root.hc .border, :root.hc .border-2 { border-color: var(--line); }
+:root.hc a, :root.hc button { text-decoration-thickness: 2px; }
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+html, body, #root { height: 100%; }
+body {
+  background: var(--bg);
+  color: var(--ink);
+  font-family: "Atkinson Hyperlegible", system-ui, -apple-system, "Segoe UI", sans-serif;
+  font-size: 1rem;
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+}
+h1, h2, h3 { text-wrap: balance; }
+*:focus-visible:not(.outline-none) { outline: 3px solid var(--focus); outline-offset: 2px; border-radius: 6px; }
+.skip-link {
+  position: absolute; left: 12px; top: -60px; z-index: 100; background: var(--forest); color: var(--forest-ink);
+  padding: 10px 16px; border-radius: 10px; font-weight: 700;
+}
+.skip-link:focus { top: calc(env(safe-area-inset-top, 0px) + 12px); }
+.toast { animation: toast-in .2s ease-out; }
+@keyframes toast-in { from { transform: translateY(8px); opacity: .6; } to { transform: none; opacity: 1; } }
+:root.reduce-motion *, :root.reduce-motion *::before, :root.reduce-motion *::after { animation: none !important; transition: none !important; scroll-behavior: auto !important; }
+@media (prefers-reduced-motion: reduce) { *, *::before, *::after { animation: none !important; transition: none !important; } }
+input[type="date"] { min-width: 0; }
+details > summary { list-style: none; }
+details > summary::-webkit-details-marker { display: none; }
+details > summary::before { content: "▸ "; color: var(--forest); }
+details[open] > summary::before { content: "▾ "; }

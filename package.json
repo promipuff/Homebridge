@@ -1,0 +1,12 @@
+{
+  "name": "homebridge",
+  "version": "0.1.0",
+  "private": true,
+  "description": "HomeBridge: smart housing and community support prototype (Hacklanta)",
+  "scripts": {
+    "icons": "node scripts/gen-icons.mjs ./lucide-icons src/icons.tsx",
+    "typecheck": "tsc --noEmit",
+    "test": "node --import tsx --test tests/*.test.ts",
+    "build": "node scripts/build.mjs"
+  }
+}
